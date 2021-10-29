@@ -1,0 +1,17 @@
+
+Y - Fermat's algo
+Y - Pollar Rho algo
+Y - Primes lookup table
+Y - base cases (even, prime and perfect power)
+Y - auto mode which choose best algo for given N size
+Y - auto mode with only 1 arg being the number (if argv[1] in "0123456789")
+Y - Brent variation of Pollar Rho
+N - Pollar P-1 algo (maybe with ajustable smoothness bound B, maybe with aditional args but parsing required)
+N - ECM algo
+N - Dixon's algo
+N - QS algo
+N - GNFS
+K - user input verif ...
+N - cuda paralelisation ... if possible for dixon QS and/or GNFS
+N - Compile files seperatly and maybe swith for gcc (g++ used) for the -j option (speed up)
+N - Actually put the real complexity ...
