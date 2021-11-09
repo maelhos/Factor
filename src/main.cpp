@@ -12,9 +12,9 @@
 #include "Fermat.h"
 #include "PollarRho.h"
 #include "Brent.h"
-#include "ECM.h"
+#include "Dixon.h"
 
-uint64_t benchMarkBitLength = 100; 
+uint64_t benchMarkBitLength = 110; 
 
 void print_usage(char* argv0){
 	std::cout << "Usage : " << argv0 << " algorithm N\n";
@@ -23,7 +23,7 @@ void print_usage(char* argv0){
 	std::cout << " - Fermat : fermat\n";
 	std::cout << " - Pollar Rho : pollar\n";
 	std::cout << " - Pollar-Brent (faster than Rho) : brent\n";
-	std::cout << " - ECM : ecm\n";
+	std::cout << " - Dixon's method : dixon\n";
 
 	std::cout << "You can also use the auto mode which will use the best algo for your number,\n";
 	std::cout << "to do this, use mode \"auto\" or just : " << argv0 << " N\n";
@@ -90,6 +90,12 @@ int main(int argc, char** argv) {
 		Brent Br(N);
 		Br.Run();
 		std::cout << std::endl << "Time used : " << ((double)Br.timeMS) << " ms or " << ((double)Br.timeMS) / 1000 << "seconds\n";
+	}
+	else if (!std::strcmp(argv[1],"dixon")){
+		std::cout << "Running Pollar-Brent algorithm (faster than Pollar Rho) on : " << N << std::endl << std::endl;
+		Dixon Dr(N);
+		Dr.Run();
+		std::cout << std::endl << "Time used : " << ((double)Dr.timeMS) << " ms or " << ((double)Dr.timeMS) / 1000 << "seconds\n";
 	}
 	else if (!std::strcmp(argv[1],"auto")){
 		std::cout << "Running auto mode on : " << N << std::endl << std::endl;

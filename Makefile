@@ -13,7 +13,7 @@ OUT_NAME := Factor
 build: $(cpp_object_files)
 	@echo "[CPP Files] :"
 	@echo $(cpp_source_files)
-	@g++ -I $(CPLUS_INCLUDE_PATH)  $(cpp_source_files) -o $(OUT_NAME) -lgmpxx -lgmp 
+	@g++ -I $(CPLUS_INCLUDE_PATH)  $(cpp_source_files) -o $(OUT_NAME) -lgmpxx -lgmp -lmpfr
 	
 
 CLEAN:

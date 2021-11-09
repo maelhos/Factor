@@ -23,11 +23,11 @@ void AutoFactor(mpz_t N) {
 		return;
 	}
 	else if (mpz_cmp(N, b10p50) < 0) {
-		std::cout << "N less than 10^50 ... going for ECM\n";
+		std::cout << "N less than 10^50 ... going for Dixon\n";
 
-		ECM EC(N);
-		EC.Run();
-		std::cout << "Time used : " << ((double)EC.timeMS) << " ms or " << ((double)EC.timeMS) / 1000 << "seconds\n";
+		Dixon Dx(N);
+		Dx.Run();
+		std::cout << "Time used : " << ((double)Dx.timeMS) << " ms or " << ((double)Dx.timeMS) / 1000 << "seconds\n";
 		return;
 	}
 	std::cout << "No technique for that number yet...";

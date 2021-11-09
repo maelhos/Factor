@@ -1,17 +1,17 @@
 #pragma once
 
 #include <string>
-#include <gmp.h>
 #include <chrono>
 #include <iostream>
 #include <ctime>
-
+#include <gmp.h>
+#include <mpfr.h>
 #include "util.h"
 
-class ECM {
+class Dixon {
 public:
-	ECM(mpz_t n);
-	std::string name = "Polar Rho";
+	Dixon(mpz_t n);
+	std::string name = "Dixon's method";
 	std::string Complexity = "O(sqrt(N))";
 	uint64_t timeMS = 0;
 	mpz_t N;
@@ -20,6 +20,7 @@ public:
 	void Run();
 	void main();
 private:
+	uint64_t FindBoundB(mpz_t n);;
 	std::chrono::time_point<std::chrono::high_resolution_clock> begin;
 	std::chrono::time_point<std::chrono::high_resolution_clock> end;
 };

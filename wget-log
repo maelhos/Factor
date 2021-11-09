@@ -1,0 +1,26 @@
+Retrying.
+
+--2021-11-05 23:58:14--  (try:15)  https://az764295.vo.msecnd.net/stable/6cba118ac49a1b88332f312a8f67186f7f3c1643/vscode-server-linux-x64.tar.gz
+Connecting to az764295.vo.msecnd.net (az764295.vo.msecnd.net)|152.199.19.160|:443... failed: Connection timed out.
+Retrying.
+
+--2021-11-06 00:00:37--  (try:16)  https://az764295.vo.msecnd.net/stable/6cba118ac49a1b88332f312a8f67186f7f3c1643/vscode-server-linux-x64.tar.gz
+Connecting to az764295.vo.msecnd.net (az764295.vo.msecnd.net)|152.199.19.160|:443... failed: Connection timed out.
+Retrying.
+
+--2021-11-06 00:03:01--  (try:17)  https://az764295.vo.msecnd.net/stable/6cba118ac49a1b88332f312a8f67186f7f3c1643/vscode-server-linux-x64.tar.gz
+Connecting to az764295.vo.msecnd.net (az764295.vo.msecnd.net)|152.199.19.160|:443... failed: Connection timed out.
+Retrying.
+
+--2021-11-06 00:05:24--  (try:18)  https://az764295.vo.msecnd.net/stable/6cba118ac49a1b88332f312a8f67186f7f3c1643/vscode-server-linux-x64.tar.gz
+Connecting to az764295.vo.msecnd.net (az764295.vo.msecnd.net)|152.199.19.160|:443... failed: Connection timed out.
+Retrying.
+
+--2021-11-06 00:07:47--  (try:19)  https://az764295.vo.msecnd.net/stable/6cba118ac49a1b88332f312a8f67186f7f3c1643/vscode-server-linux-x64.tar.gz
+Connecting to az764295.vo.msecnd.net (az764295.vo.msecnd.net)|152.199.19.160|:443... failed: Connection timed out.
+Retrying.
+
+--2021-11-06 00:10:11--  (try:20)  https://az764295.vo.msecnd.net/stable/6cba118ac49a1b88332f312a8f67186f7f3c1643/vscode-server-linux-x64.tar.gz
+Connecting to az764295.vo.msecnd.net (az764295.vo.msecnd.net)|152.199.19.160|:443... failed: Connection timed out.
+Giving up.
+
