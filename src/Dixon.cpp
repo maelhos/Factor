@@ -34,8 +34,54 @@ uint64_t Dixon::FindBoundB(mpz_t n) {
 	return mpfr_get_ui(k, MPFR_RNDN) + 1;
 }
 
+void Dixon::getFactorBase(mpz_t* N, uint64_t b){
+	mpz_t temp;
+	mpz_init(temp);
+	uint16_t j = 0;
+	assert (b <= Plength); 
+	for (uint16_t i = 0; i < b; i++)
+	{
+		mpz_set_ui(temp,primes[i]);
+		if (mpz_jacobi(*N,temp)){
+			FactBase[j] = primes[i];
+			j++;
+		}
+	}
+	FactMax = FactBase[j-1];
+	FactSize = j;
+}	
+
+bool Dixon::isSmooth(mpz_t* p, uint64_t* facts, uint16_t* powers){
+	uint32_t tempPr, tempPow, tempIndex;
+	tempIndex = 0;
+	for (uint32_t i = 0; i < FactSize; i++)
+	{
+		tempPr = FactBase[i];
+		tempPow = 0;
+		while (mpz_divisible_ui_p(*p,tempPr)){
+			mpz_div_ui(*p, *p, tempPr);
+			tempPow++;
+		}
+		if (tempPow){
+			facts[tempIndex] = tempPr;
+			powers[tempIndex] = tempPow;
+			tempIndex++;
+		}
+		if (!mpz_cmp_ui(*p,1)) return true;
+	}
+	return false;
+}
+
 void Dixon::main() {
-	std::cout << "Bound B : " << FindBoundB(N) << std::endl;
+	std::cout << "Optimal bound B : " << FindBoundB(N) << std::endl;
+
+	std::cout << "Calculating Factor base mod N ..." << std::endl;
+	getFactorBase(&N,Plength);
+	std::cout << "Found Factor Base ..." << std::endl;
+
+
+
+	
 	std::cout << "Not implemented yet ... \n";
 
 }
