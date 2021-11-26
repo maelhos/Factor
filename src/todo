@@ -11,7 +11,7 @@ N - ECM algo
 N - Dixon's algo
 N - QS algo
 N - GNFS
-K - user input verif ...
+Y - user input verif ...
 N - cuda paralelisation ... if possible for dixon QS and/or GNFS
-N - Compile files seperatly and maybe swith for gcc (g++ used) for the -j option (speed up)
+Y - Compile files seperatly and maybe swith for gcc (g++ used) for the -j option (speed up)
 N - Actually put the real complexity ...

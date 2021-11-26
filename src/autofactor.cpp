@@ -25,7 +25,9 @@ void AutoFactor(mpz_t N) {
 	else if (mpz_cmp(N, b10p50) < 0) {
 		std::cout << "N less than 10^50 ... going for Dixon\n";
 
-		Dixon Dx(N);
+		mpz_t BB;
+		mpz_init_set_ui(BB, 0);
+		Dixon Dx(N,BB);
 		Dx.Run();
 		std::cout << "Time used : " << ((double)Dx.timeMS) << " ms or " << ((double)Dx.timeMS) / 1000 << "seconds\n";
 		return;

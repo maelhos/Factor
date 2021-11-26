@@ -14,7 +14,7 @@
 #include "Brent.h"
 #include "Dixon.h"
 
-uint64_t benchMarkBitLength = 110; 
+uint64_t benchMarkBitLength = 20; 
 
 void print_usage(char* argv0){
 	std::cout << "Usage : " << argv0 << " algorithm N\n";
@@ -28,14 +28,17 @@ void print_usage(char* argv0){
 	std::cout << "You can also use the auto mode which will use the best algo for your number,\n";
 	std::cout << "to do this, use mode \"auto\" or just : " << argv0 << " N\n";
 	std::cout << "Or use benchmark with -b\n";
+	exit(0);
 }
 void print_wrong_algo(char** argv){
 	std::cout << "Sorry but the algo : " << argv[1] << " does not exist (yet...) \nHere are the existing ones :\n";
 	print_usage(argv[0]);
 }
 static char digits[11] = "0123456789";
-int main(int argc, char** argv) {
-	
+int main(int argc, char* argv[]) {
+	if (argc == 1){
+		print_usage(*argv);
+	}
 	mpz_randinit();
 	if (argc == 2) {
 		if (argv[1][0] == '-' && argv[1][1] == 'b') {
@@ -64,7 +67,7 @@ int main(int argc, char** argv) {
 		}
 	}
 	
-	if (argc != 3) {
+	if (argc > 4) {
 		print_usage(*argv);
 		return 0;
 	}
@@ -92,10 +95,21 @@ int main(int argc, char** argv) {
 		std::cout << std::endl << "Time used : " << ((double)Br.timeMS) << " ms or " << ((double)Br.timeMS) / 1000 << "seconds\n";
 	}
 	else if (!std::strcmp(argv[1],"dixon")){
-		std::cout << "Running Pollar-Brent algorithm (faster than Pollar Rho) on : " << N << std::endl << std::endl;
-		Dixon Dr(N);
+		mpz_t BB;
+		mpz_init_set_ui(BB,0);
+
+		if (argc == 3) std::cout << "Running Dixon on an default B and N : " << N << std::endl << std::endl;
+		else {
+			mpz_set_str(BB,argv[3],10);
+			std::cout << "Running Dixon on an custom B and N  : " << N << " and B " << BB << std::endl << std::endl;
+		}
+
+
+		Dixon Dr(N, BB);
 		Dr.Run();
 		std::cout << std::endl << "Time used : " << ((double)Dr.timeMS) << " ms or " << ((double)Dr.timeMS) / 1000 << "seconds\n";
+
+
 	}
 	else if (!std::strcmp(argv[1],"auto")){
 		std::cout << "Running auto mode on : " << N << std::endl << std::endl;
