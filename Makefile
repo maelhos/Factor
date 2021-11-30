@@ -19,7 +19,7 @@ build: $(cpp_object_files)
 	@echo $(cpp_source_files)
 	@echo "[CPP OBJ Files] :"
 	@echo $(cpp_object_files)
-	@g++ -o $(OUT_NAME) $(cpp_object_files) -lgmp -lgmpxx -lmpfr
+	@g++ -g -o $(OUT_NAME) $(cpp_object_files) -lgmp -lgmpxx -lmpfr
 
 CLEAN:
 	@rm -rfv build/

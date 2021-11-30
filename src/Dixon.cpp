@@ -76,21 +76,23 @@ bool Dixon::isSmooth(mpz_t* p, uint64_t* facts, uint16_t* powers, uint64_t* numF
 	{
 		tempPr = FactBase[i];
 		tempPow = 0;
-		while (mpz_divisible_ui_p(*p,tempPr)){
-			mpz_div_ui(*p, *p, tempPr);
+		while (mpz_divisible_ui_p(bck,tempPr)){
+			mpz_div_ui(bck, bck, tempPr);
 			tempPow++;
 		}
-		if (tempPow){
+		if (tempPow != 0){
 			facts[tempIndex] = tempPr;
 			powers[tempIndex] = tempPow;
 			tempIndex++;
 		}
-		if (!mpz_cmp_ui(*p,1)){
+		if (mpz_cmp_ui(bck,1) == 0){
 			*numFact = tempIndex;
-			mpz_set(*p,bck);
+			mpz_clear(bck);
 			return true;
 		}
 	}
+	*numFact = 0;
+	mpz_clear(bck);
 	return false;
 }
 
@@ -102,21 +104,38 @@ void Dixon::Findrels(){
 	mpz_t fs; mpz_init(fs);
 	uint64_t* tempFacts = (uint64_t*)malloc(FactSize * sizeof(uint64_t));
 	uint16_t* tempPows = (uint16_t*)malloc(FactSize * sizeof(uint16_t));
-	uint64_t* numFact = (uint64_t*)malloc(sizeof(uint64_t));
+	uint64_t tempnumFact;
 	while (numRels < bb){
 		mpz_mul(fs,r,r); // fs = (r^2) mod N
 		mpz_mod(fs,fs,N);
-		if (isSmooth(&fs,tempFacts,tempPows,numFact)){
-			memcpy(Rels[numRels].Facts,tempFacts,*numFact);
-			memcpy(Rels[numRels].Pows,tempPows,*numFact);
-			Rels[numRels].numFact = *numFact;
+		if (isSmooth(&fs,tempFacts,tempPows,&tempnumFact)){
+			Rels[numRels].Facts = (uint64_t*)malloc((tempnumFact+1) * sizeof(uint64_t));
+			Rels[numRels].Pows = (uint16_t*)malloc((tempnumFact+1) * sizeof(uint16_t));
+
+			memcpy(Rels[numRels].Facts,tempFacts,tempnumFact*8);
+			memcpy(Rels[numRels].Pows,tempPows,tempnumFact*2);
+
+			Rels[numRels].numFact = tempnumFact;
+			mpz_init(Rels[numRels].k);
+			mpz_set(Rels[numRels].k, r);
 			numRels++;
 		}
 		mpz_inc(&r);
 	}
 	free(tempFacts);
 	free(tempPows);
-	free(numFact);
+	mpz_clear(fs);
+	mpz_clear(r);
+}
+void Dixon::PrintRel(Rel rel){
+	std::cout <<  rel.k << "^2 = ";
+	for (uint64_t i = 0; i < rel.numFact; i++)
+	{
+		if (rel.Pows[i] == 1) std::cout << rel.Facts[i];
+		else std::cout << rel.Facts[i] << "^" << rel.Pows[i];
+		if (i+1 < rel.numFact) std::cout << " * ";
+	}
+	std::cout << std::endl;
 }
 void Dixon::main() {
 
@@ -131,6 +150,24 @@ void Dixon::main() {
 	getFactorBase();
 	std::cout << "Found Factor Base ..." << std::endl;
 
+	std::cout << "Sieving for relation mod N ..." << std::endl;
+	Findrels();
+	std::cout << "Sieving Done" << std::endl;
+	
+	mpz_t fs; mpz_init_set_ui(fs,47*47 % 391);
+	uint64_t* tempFacts = (uint64_t*)malloc(FactSize * sizeof(uint64_t));
+	uint16_t* tempPows = (uint16_t*)malloc(FactSize * sizeof(uint16_t));
+	uint64_t tempnumFact = 0;
+
+	for (uint64_t i = 0; i < bb; i++)
+	{
+		PrintRel(Rels[i]);
+	}
+	
+
+	
+	
+	
 
 	std::cout << "Not implemented yet ... \n";
 

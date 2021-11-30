@@ -30,7 +30,7 @@ public:
 private:
 	struct Rel
 	{
-		mpz_t* k;
+		mpz_t k;
 		uint64_t* Facts;
 		uint16_t* Pows;
 		uint64_t numFact;
@@ -44,6 +44,8 @@ private:
 	void getFactorBase();
 	bool isSmooth(mpz_t* p, uint64_t* facts, uint16_t* powers, uint64_t* numFact);
 	void Findrels();
+
+	void PrintRel(Rel rel);
 
 	std::chrono::time_point<std::chrono::high_resolution_clock> begin;
 	std::chrono::time_point<std::chrono::high_resolution_clock> end;

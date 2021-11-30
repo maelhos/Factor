@@ -2,8 +2,8 @@
 
 void AutoFactor(mpz_t N) {
     mpz_t b2p16, b2p70, b10p50, b10p100;
-    mpz_init(b2p16); 	          mpz_init(b2p70);	            mpz_init(b10p50); 		        mpz_init(b10p100);
-	mpz_set_ui(b2p16, 2);         mpz_set_ui(b2p70, 2);         mpz_set_ui(b10p50, 10);         mpz_set_ui(b10p100, 10);
+    mpz_init(b2p16); 	          mpz_init(b2p70);	             mpz_init(b10p50); 		         mpz_init(b10p100);
+	mpz_set_ui(b2p16, 2);         mpz_set_ui(b2p70, 2);          mpz_set_ui(b10p50, 10);         mpz_set_ui(b10p100, 10);
 	mpz_pow_ui(b2p16, b2p16, 16); mpz_pow_ui(b2p70, b2p70, 100); mpz_pow_ui(b10p50, b10p50, 50); mpz_pow_ui(b10p50, b10p50, 100); 
 
 	if (mpz_cmp(N, b2p16) < 0) {

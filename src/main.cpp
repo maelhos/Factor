@@ -14,7 +14,7 @@
 #include "Brent.h"
 #include "Dixon.h"
 
-uint64_t benchMarkBitLength = 20; 
+uint64_t benchMarkBitLength = 30; 
 
 void print_usage(char* argv0){
 	std::cout << "Usage : " << argv0 << " algorithm N\n";

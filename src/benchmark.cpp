@@ -1,8 +1,8 @@
 #include "benchmark.h"
 
 void benchmark(uint64_t bitlen){
-    mpz_t p, q, N, b;
-	mpz_init(p); mpz_init(q); mpz_init(N); mpz_init(b);
+    mpz_t p, q, N;
+	mpz_init(p); mpz_init(q); mpz_init(N);
 
 	mpz_randpow2(&p,bitlen/2);
 	mpz_randpow2(&q,bitlen/2);
