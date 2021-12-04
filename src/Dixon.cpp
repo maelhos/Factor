@@ -15,8 +15,6 @@ Dixon::Dixon(mpz_t n,mpz_t b)
 	mpz_init(N); mpz_init(p);mpz_init(q);mpz_init(B);
 	mpz_set(N, n);
 	mpz_set(B, b);
-	bb = mpz_get_ui(B) + 1;
-	Rels = (Rel*)malloc(bb * sizeof(Rel));
 }
 
 void Dixon::FindBoundB(mpz_t n) {
@@ -40,8 +38,8 @@ void Dixon::getFactorBase(){
 	static uint64_t num = 0;
 	
 	bool* FactbBase;
-	FactBase = (uint64_t*)malloc(bb * sizeof(uint64_t));
-	FactbBase = (bool*)malloc(bb * sizeof(bool));
+	FactBase = (uint64_t*)malloc((1+bb) * sizeof(uint64_t));
+	FactbBase = (bool*)malloc((1+bb) * sizeof(bool));
 
 	std::memset(FactbBase, true, bb * sizeof(bool));
 	std::memset(FactBase, 0, bb * sizeof(uint64_t));
@@ -97,36 +95,73 @@ bool Dixon::isSmooth(mpz_t* p, uint64_t* facts, uint16_t* powers, uint64_t* numF
 }
 
 void Dixon::Findrels(){
-	mpz_t r; mpz_init(r);
-	mpz_sqrt(r,N);
+	mpz_t sqrt; mpz_init(sqrt);
+	mpz_t k; mpz_init_set_ui(k,1);
+
+	mpz_t a; mpz_init(a);
+	mpz_t b; mpz_init(b);
+
+
 	uint64_t numRels = 0;
 
-	mpz_t fs; mpz_init(fs);
 	uint64_t* tempFacts = (uint64_t*)malloc(FactSize * sizeof(uint64_t));
 	uint16_t* tempPows = (uint16_t*)malloc(FactSize * sizeof(uint16_t));
 	uint64_t tempnumFact;
+
 	while (numRels < bb){
-		mpz_mul(fs,r,r); // fs = (r^2) mod N
-		mpz_mod(fs,fs,N);
-		if (isSmooth(&fs,tempFacts,tempPows,&tempnumFact)){
-			Rels[numRels].Facts = (uint64_t*)malloc((tempnumFact+1) * sizeof(uint64_t));
-			Rels[numRels].Pows = (uint16_t*)malloc((tempnumFact+1) * sizeof(uint16_t));
+		mpz_mul(sqrt,N,k);   // sqrt = sqrt(N*k)
+		mpz_sqrt(sqrt,sqrt);
+		for (uint8_t i = 0; i < 100; i++)
+		{
+			mpz_add_ui(a,sqrt,i); // a = sqrt + i;
+			mpz_powm_ui(b,a,2,N);
+			if (isSmooth(&b,tempFacts,tempPows,&tempnumFact)){
+				Rels[numRels].Facts = (uint64_t*)malloc((tempnumFact+1) * sizeof(uint64_t));
+				Rels[numRels].Pows = (uint16_t*)malloc((tempnumFact+1) * sizeof(uint16_t));
 
-			memcpy(Rels[numRels].Facts,tempFacts,tempnumFact*8);
-			memcpy(Rels[numRels].Pows,tempPows,tempnumFact*2);
+				memcpy(Rels[numRels].Facts,tempFacts,tempnumFact*8);
+				memcpy(Rels[numRels].Pows,tempPows,tempnumFact*2);
 
-			Rels[numRels].numFact = tempnumFact;
-			mpz_init(Rels[numRels].k);
-			mpz_set(Rels[numRels].k, r);
-			numRels++;
+				Rels[numRels].numFact = tempnumFact;
+				mpz_init(Rels[numRels].k);
+				mpz_set(Rels[numRels].k, a);
+				numRels++;
+				std::cout << "\r" << numRels << " / " << bb << " ; " << (100 * numRels) / bb << " %";
+			}
 		}
-		mpz_inc(&r);
+		
+		mpz_inc(&k);
 	}
+	std::cout << std::endl;
 	free(tempFacts);
 	free(tempPows);
-	mpz_clear(fs);
-	mpz_clear(r);
+	mpz_clear(a);
+	mpz_clear(b);
+	mpz_clear(sqrt);
+	mpz_clear(k);
 }
+
+void Dixon::BitVectorize(){ // TODO: use bool[] instead of int64 and in the future int64[] or mpz...
+	for (uint64_t i = 0; i < bb; i++)
+	{
+		Rels[i].BitVector = 0;
+		for (uint64_t j = 0; j < Rels[i].numFact; j++)
+		{
+			for (uint64_t k = 0; k < FactSize; k++)
+			{
+				if (FactBase[k] == Rels[i].Facts[j] && Rels[i].Pows[j] & 1)
+				{
+					Rels[i].BitVector |= 1 << k;
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+}
+
 void Dixon::PrintRel(Rel rel){
 	std::cout <<  rel.k << "^2 = ";
 	for (uint64_t i = 0; i < rel.numFact; i++)
@@ -135,8 +170,16 @@ void Dixon::PrintRel(Rel rel){
 		else std::cout << rel.Facts[i] << "^" << rel.Pows[i];
 		if (i+1 < rel.numFact) std::cout << " * ";
 	}
+	char* BitVec;
+	BitVec = (char*)malloc(FactSize+1);
+	memset(BitVec,'0',FactSize);
+
+	std::bitset<64> x(rel.BitVector);
+	std::cout << " -> " << x;
 	std::cout << std::endl;
+	free(BitVec);
 }
+
 void Dixon::main() {
 
 	if (!mpz_cmp_ui(B,0)){
@@ -144,7 +187,8 @@ void Dixon::main() {
 		std::cout << "Optimal bound B : " << B << std::endl;
 	}
 	else std::cout << "Bound B already set by user : " << B << std::endl;
-
+	bb = mpz_get_ui(B);
+	Rels = (Rel*)malloc(bb * sizeof(Rel));
 
 	std::cout << "Allocating and calculating Factor base mod N ..." << std::endl;
 	getFactorBase();
@@ -154,22 +198,15 @@ void Dixon::main() {
 	Findrels();
 	std::cout << "Sieving Done" << std::endl;
 	
-	mpz_t fs; mpz_init_set_ui(fs,47*47 % 391);
-	uint64_t* tempFacts = (uint64_t*)malloc(FactSize * sizeof(uint64_t));
-	uint16_t* tempPows = (uint16_t*)malloc(FactSize * sizeof(uint16_t));
-	uint64_t tempnumFact = 0;
+	std::cout << "Vectorizing relations ..." << std::endl;
+	BitVectorize();
+	std::cout << "Vectorizing Done" << std::endl;
 
 	for (uint64_t i = 0; i < bb; i++)
 	{
 		PrintRel(Rels[i]);
 	}
 	
-
-	
-	
-	
-
 	std::cout << "Not implemented yet ... \n";
-
 }
 

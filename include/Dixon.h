@@ -7,6 +7,7 @@
 #include <gmp.h>
 #include <mpfr.h>
 #include <bits/stdc++.h>
+#include <bitset>
 
 #include <primesUpTo2to16.h>
 #include "util.h"
@@ -34,6 +35,7 @@ private:
 		uint64_t* Facts;
 		uint16_t* Pows;
 		uint64_t numFact;
+		uint64_t BitVector;
 	};
 	Rel* Rels;
 	uint64_t* FactBase;
@@ -44,6 +46,7 @@ private:
 	void getFactorBase();
 	bool isSmooth(mpz_t* p, uint64_t* facts, uint16_t* powers, uint64_t* numFact);
 	void Findrels();
+	void BitVectorize();
 
 	void PrintRel(Rel rel);
 
