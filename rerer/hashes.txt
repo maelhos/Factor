@@ -1,0 +1,34 @@
+Impacket v0.9.25.dev1+20211027.123255.1dad8f7f - Copyright 2021 SecureAuth Corporation
+
+[*] Target system bootKey: 0xb8494c9bd31a4cf8cf8fe63e262ade37
+[*] Dumping local SAM hashes (uid:rid:lmhash:nthash)
+Administrateur:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+Invité:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+WDAGUtilityAccount:504:aad3b435b51404eeaad3b435b51404ee:0e6db1e2ba3c26902274c9e441345a96:::
+adminlocal:1001:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+[*] Dumping cached domain logon information (domain/username:hash)
+LBES-HUGO.ETAB.LOCAL/lucie.vieille:$DCC2$10240#lucie.vieille#ee2ff82347a242089247014855bce726
+LBES-HUGO.ETAB.LOCAL/mael.hostettler:$DCC2$10240#mael.hostettler#485948ad49eb3f86b3fe5bd8001843b7
+LBES-HUGO.ETAB.LOCAL/manon.jourdet:$DCC2$10240#manon.jourdet#2e64da4741393edbab3977030d137f6f
+LBES-HUGO.ETAB.LOCAL/juliette.blanchard:$DCC2$10240#juliette.blanchard#e7ab0db85eb37d5605853f658ee0ed5f
+LBES-HUGO.ETAB.LOCAL/jules.didier:$DCC2$10240#jules.didier#eb12a8c4acba5aafcf79ad572dca503b
+LBES-HUGO.ETAB.LOCAL/hugo.rozier:$DCC2$10240#hugo.rozier#a31c3b82cd932256c6556580ce252c81
+LBES-HUGO.ETAB.LOCAL/philippe.nedeljkovic:$DCC2$10240#philippe.nedeljkovic#35cfb94e0512beaea84010800715659a
+LBES-HUGO.ETAB.LOCAL/lois.guillin:$DCC2$10240#lois.guillin#1e8eb4c66f00d14bf835479b33ec90ae
+LBES-HUGO.ETAB.LOCAL/augustin.perrin:$DCC2$10240#augustin.perrin#cb76475b05781ee4587be70376cce521
+LBES-HUGO.ETAB.LOCAL/marc.tuloup:$DCC2$10240#marc.tuloup#fb71b087e00756360e24f08b428ad6f9
+[*] Dumping LSA Secrets
+[*] $MACHINE.ACC 
+$MACHINE.ACC:plain_password_hex:1df10414f9b56101b7eb3a9dba4053d7afce12794aeac28058e52430d1a21baed8c34bab7fc2e937da1aaefa62f0adae7142ea26c41d4be7b1657184edc8e9af2bcb8c6fdbc1cae22a92a3ffd3594d2d1c8a23896e6411e9637fe7ffa774e08d8651c8a1a7a56ad1936145d01dd5bec8944270f7ffc32dd74704eec4c6c1a1ee2a268dfef98bcc5d340520c094c667cd1b00c677bd52afd400580ea0873aa4ab13cc498358d5fbfce6bd742947b5080e102c42f9cc44c67c09d3eeb88fe65edab0d5e3e086cb96cb55fc21ae357d31a48c3ab7c29768780a0ac67595bb67cdc22a6d293c9bf24c2358834563b207a919
+$MACHINE.ACC: aad3b435b51404eeaad3b435b51404ee:86a8446922d709e1eec65da276fbcf87
+[*] DPAPI_SYSTEM 
+dpapi_machinekey:0xbd0a5e646f10cbcdc307603502d889405448c2c9
+dpapi_userkey:0x5640fe783acac839b8017b81fbc6716ad5b775a7
+[*] NL$KM 
+ 0000   14 7D A9 96 DF 06 BD 18  26 0E E2 2E 2F 45 7D 6E   .}......&.../E}n
+ 0010   76 66 A1 F2 6B CB 05 EA  19 0D B6 F3 04 9B A2 F1   vf..k...........
+ 0020   C9 51 83 D3 86 BB E9 55  9E 13 E1 E6 99 86 21 A3   .Q.....U......!.
+ 0030   99 40 4D 13 18 31 E0 46  BA C2 E6 B7 99 20 E0 F2   .@M..1.F..... ..
+NL$KM:147da996df06bd18260ee22e2f457d6e7666a1f26bcb05ea190db6f3049ba2f1c95183d386bbe9559e13e1e6998621a399404d131831e046bac2e6b79920e0f2
+[*] Cleaning up... 

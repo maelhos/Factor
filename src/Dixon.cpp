@@ -65,7 +65,7 @@ void Dixon::getFactorBase(){
 	FactBase = (uint64_t*)realloc(FactBase,(FactSize + 1) * sizeof(uint64_t)); // crop the size to save space
 }	
 
-bool Dixon::isSmooth(mpz_t* p, uint64_t* facts, uint16_t* powers, uint64_t* numFact){
+bool Dixon::isSmooth(mpz_t* p, uint64_t* facts, uint16_t* powers, uint64_t* numFact, uint8_t* BitVec){
 	static uint32_t tempPr, tempPow, tempIndex;
 	mpz_t bck;
 	mpz_init_set(bck,*p);
@@ -83,6 +83,10 @@ bool Dixon::isSmooth(mpz_t* p, uint64_t* facts, uint16_t* powers, uint64_t* numF
 			powers[tempIndex] = tempPow;
 			tempIndex++;
 		}
+		
+		BitVec[i] = tempPow & 1;
+			
+		
 		if (mpz_cmp_ui(bck,1) == 0){
 			*numFact = tempIndex;
 			mpz_clear(bck);
@@ -106,60 +110,49 @@ void Dixon::Findrels(){
 
 	uint64_t* tempFacts = (uint64_t*)malloc(FactSize * sizeof(uint64_t));
 	uint16_t* tempPows = (uint16_t*)malloc(FactSize * sizeof(uint16_t));
+	uint8_t* tempBitVec  = (uint8_t*)malloc((FactSize+1) * sizeof(uint8_t));
 	uint64_t tempnumFact;
 
-	while (numRels < bb){
+	memset(tempBitVec,0,(FactSize+1)/8);
+
+	while (1){
 		mpz_mul(sqrt,N,k);   // sqrt = sqrt(N*k)
 		mpz_sqrt(sqrt,sqrt);
 		for (uint8_t i = 0; i < 100; i++)
 		{
 			mpz_add_ui(a,sqrt,i); // a = sqrt + i;
 			mpz_powm_ui(b,a,2,N);
-			if (isSmooth(&b,tempFacts,tempPows,&tempnumFact)){
+			if (isSmooth(&b,tempFacts,tempPows,&tempnumFact,tempBitVec)){
 				Rels[numRels].Facts = (uint64_t*)malloc((tempnumFact+1) * sizeof(uint64_t));
 				Rels[numRels].Pows = (uint16_t*)malloc((tempnumFact+1) * sizeof(uint16_t));
-
+				Rels[numRels].BitVec = (uint8_t*)malloc(FactSize + 1);
+			
 				memcpy(Rels[numRels].Facts,tempFacts,tempnumFact*8);
 				memcpy(Rels[numRels].Pows,tempPows,tempnumFact*2);
+				memcpy(Rels[numRels].BitVec,tempBitVec,FactSize);
 
 				Rels[numRels].numFact = tempnumFact;
 				mpz_init(Rels[numRels].k);
 				mpz_set(Rels[numRels].k, a);
 				numRels++;
+				
 				std::cout << "\r" << numRels << " / " << bb << " ; " << (100 * numRels) / bb << " %";
+				if (numRels >= bb)
+				{
+					std::cout << std::endl;
+					free(tempFacts);
+					free(tempPows);
+					mpz_clear(a);
+					mpz_clear(b);
+					mpz_clear(sqrt);
+					mpz_clear(k);
+					return;
+				}
 			}
 		}
-		
 		mpz_inc(&k);
 	}
-	std::cout << std::endl;
-	free(tempFacts);
-	free(tempPows);
-	mpz_clear(a);
-	mpz_clear(b);
-	mpz_clear(sqrt);
-	mpz_clear(k);
-}
 
-void Dixon::BitVectorize(){ // TODO: use bool[] instead of int64 and in the future int64[] or mpz...
-	for (uint64_t i = 0; i < bb; i++)
-	{
-		Rels[i].BitVector = 0;
-		for (uint64_t j = 0; j < Rels[i].numFact; j++)
-		{
-			for (uint64_t k = 0; k < FactSize; k++)
-			{
-				if (FactBase[k] == Rels[i].Facts[j] && Rels[i].Pows[j] & 1)
-				{
-					Rels[i].BitVector |= 1 << k;
-				}
-				
-			}
-			
-		}
-		
-	}
-	
 }
 
 void Dixon::PrintRel(Rel rel){
@@ -170,14 +163,21 @@ void Dixon::PrintRel(Rel rel){
 		else std::cout << rel.Facts[i] << "^" << rel.Pows[i];
 		if (i+1 < rel.numFact) std::cout << " * ";
 	}
-	char* BitVec;
-	BitVec = (char*)malloc(FactSize+1);
-	memset(BitVec,'0',FactSize);
-
-	std::bitset<64> x(rel.BitVector);
-	std::cout << " -> " << x;
+	std::cout << " -> ";
+	for (uint32_t i = 0; i < FactSize ; i++)
+	{
+		if (rel.BitVec[i])
+		{
+			std::cout << "1";
+		}
+		else
+		{
+			std::cout << "0";
+		}
+		
+		
+	}
 	std::cout << std::endl;
-	free(BitVec);
 }
 
 void Dixon::main() {
@@ -197,10 +197,6 @@ void Dixon::main() {
 	std::cout << "Sieving for relation mod N ..." << std::endl;
 	Findrels();
 	std::cout << "Sieving Done" << std::endl;
-	
-	std::cout << "Vectorizing relations ..." << std::endl;
-	BitVectorize();
-	std::cout << "Vectorizing Done" << std::endl;
 
 	for (uint64_t i = 0; i < bb; i++)
 	{
@@ -208,5 +204,11 @@ void Dixon::main() {
 	}
 	
 	std::cout << "Not implemented yet ... \n";
+	std::cout << FactSize << std::endl;
+	for (int i = 0; i < FactSize; i++)
+	{
+		std::cout << FactBase[i] << " ";
+	}
+	std::cout << std::endl;
 }
 

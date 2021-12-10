@@ -29,24 +29,26 @@ public:
 	void Run();
 	void main();
 private:
+	
 	struct Rel
 	{
 		mpz_t k;
 		uint64_t* Facts;
 		uint16_t* Pows;
 		uint64_t numFact;
-		uint64_t BitVector;
+		uint8_t* BitVec;
 	};
 	Rel* Rels;
+
+
 	uint64_t* FactBase;
 	uint64_t FactSize;
 	uint64_t FactMax;
 	uint64_t bb;
 	void FindBoundB(mpz_t n);;
 	void getFactorBase();
-	bool isSmooth(mpz_t* p, uint64_t* facts, uint16_t* powers, uint64_t* numFact);
+	bool isSmooth(mpz_t* p, uint64_t* facts, uint16_t* powers, uint64_t* numFact, uint8_t* BitVec);
 	void Findrels();
-	void BitVectorize();
 
 	void PrintRel(Rel rel);
 

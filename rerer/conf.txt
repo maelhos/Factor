@@ -1,0 +1,26 @@
+
+Configuration IP de Windows
+
+
+Carte Ethernet Ethernet :
+
+   Statut du m‚dia. . . . . . . . . . . . : M‚dia d‚connect‚
+   Suffixe DNS propre … la connexion. . . : 
+
+Carte r‚seau sans fil Connexion au r‚seau local* 1ÿ:
+
+   Statut du m‚dia. . . . . . . . . . . . : M‚dia d‚connect‚
+   Suffixe DNS propre … la connexion. . . : 
+
+Carte r‚seau sans fil Connexion au r‚seau local* 10ÿ:
+
+   Statut du m‚dia. . . . . . . . . . . . : M‚dia d‚connect‚
+   Suffixe DNS propre … la connexion. . . : 
+
+Carte r‚seau sans fil Wi-Fiÿ:
+
+   Suffixe DNS propre … la connexion. . . : LBES-HUGO.etab.local
+   Adresse IPv6 de liaison locale. . . . .: fe80::db2:7c5e:728c:33fe%12
+   Adresse IPv4. . . . . . . . . . . . . .: 10.225.19.18
+   Masque de sous-r‚seau. . . .ÿ. . . . . : 255.255.252.0
+   Passerelle par d‚faut. . . .ÿ. . . . . : 10.225.19.254
