@@ -20,3 +20,14 @@ C:\Users\Mael\Desktop\GF_Bot\GF_Bot\obj\x64\Debug\GF_Bot.csproj.GenerateResource
 C:\Users\Mael\Desktop\GF_Bot\GF_Bot\obj\x64\Debug\GF_Bot.csproj.CoreCompileInputs.cache
 C:\Users\Mael\Desktop\GF_Bot\GF_Bot\obj\x64\Debug\GF_Bot.exe
 C:\Users\Mael\Desktop\GF_Bot\GF_Bot\obj\x64\Debug\GF_Bot.pdb
+C:\Users\mael3\Desktop\Factor\GF_Bot\GF_Bot\bin\x64\Debug\GF_Bot.exe.config
+C:\Users\mael3\Desktop\Factor\GF_Bot\GF_Bot\bin\x64\Debug\GF_Bot.exe
+C:\Users\mael3\Desktop\Factor\GF_Bot\GF_Bot\bin\x64\Debug\GF_Bot.pdb
+C:\Users\mael3\Desktop\Factor\GF_Bot\GF_Bot\bin\x64\Debug\VAMemory.dll
+C:\Users\mael3\Desktop\Factor\GF_Bot\GF_Bot\obj\x64\Debug\GF_Bot.csprojAssemblyReference.cache
+C:\Users\mael3\Desktop\Factor\GF_Bot\GF_Bot\obj\x64\Debug\GF_Bot.GF_Bot.resources
+C:\Users\mael3\Desktop\Factor\GF_Bot\GF_Bot\obj\x64\Debug\GF_Bot.Properties.Resources.resources
+C:\Users\mael3\Desktop\Factor\GF_Bot\GF_Bot\obj\x64\Debug\GF_Bot.csproj.GenerateResource.cache
+C:\Users\mael3\Desktop\Factor\GF_Bot\GF_Bot\obj\x64\Debug\GF_Bot.csproj.CopyComplete
+C:\Users\mael3\Desktop\Factor\GF_Bot\GF_Bot\obj\x64\Debug\GF_Bot.exe
+C:\Users\mael3\Desktop\Factor\GF_Bot\GF_Bot\obj\x64\Debug\GF_Bot.pdb
