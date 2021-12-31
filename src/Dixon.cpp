@@ -114,7 +114,7 @@ void Dixon::Findrels(){
 	uint64_t tempnumFact;
 
 	memset(tempBitVec,0,(FactSize+1)/8);
-
+	std::cout << "\r" << numRels << " / " << FactSize << " ; " << (100 * numRels) / FactSize << " %";
 	while (1){
 		mpz_mul(sqrt,N,k);   // sqrt = sqrt(N*k)
 		mpz_sqrt(sqrt,sqrt);
@@ -136,12 +136,13 @@ void Dixon::Findrels(){
 				mpz_set(Rels[numRels].k, a);
 				numRels++;
 				
-				std::cout << "\r" << numRels << " / " << bb << " ; " << (100 * numRels) / bb << " %";
-				if (numRels >= bb)
+				std::cout << "\r" << numRels << " / " << FactSize << " ; " << (100 * numRels) / FactSize << " %";
+				if (numRels >= FactSize)
 				{
 					std::cout << std::endl;
 					free(tempFacts);
 					free(tempPows);
+					free(tempBitVec);
 					mpz_clear(a);
 					mpz_clear(b);
 					mpz_clear(sqrt);
@@ -157,6 +158,8 @@ void Dixon::Findrels(){
 
 void Dixon::PrintRel(Rel rel){
 	std::cout <<  rel.k << "^2 = ";
+	if (rel.numFact == 0)
+		std::cout << "1";
 	for (uint64_t i = 0; i < rel.numFact; i++)
 	{
 		if (rel.Pows[i] == 1) std::cout << rel.Facts[i];
@@ -180,6 +183,12 @@ void Dixon::PrintRel(Rel rel){
 	std::cout << std::endl;
 }
 
+void Dixon::SolveMatrix(){
+	
+
+}
+
+
 void Dixon::main() {
 
 	if (!mpz_cmp_ui(B,0)){
@@ -198,17 +207,13 @@ void Dixon::main() {
 	Findrels();
 	std::cout << "Sieving Done" << std::endl;
 
-	for (uint64_t i = 0; i < bb; i++)
+	for (uint64_t i = 0; i < FactSize; i++)
 	{
 		PrintRel(Rels[i]);
 	}
-	
-	std::cout << "Not implemented yet ... \n";
-	std::cout << FactSize << std::endl;
-	for (int i = 0; i < FactSize; i++)
-	{
-		std::cout << FactBase[i] << " ";
-	}
 	std::cout << std::endl;
+
+	
 }
+
 

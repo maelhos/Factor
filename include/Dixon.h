@@ -49,6 +49,7 @@ private:
 	void getFactorBase();
 	bool isSmooth(mpz_t* p, uint64_t* facts, uint16_t* powers, uint64_t* numFact, uint8_t* BitVec);
 	void Findrels();
+	void SolveMatrix();
 
 	void PrintRel(Rel rel);
 

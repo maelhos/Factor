@@ -15,3 +15,8 @@ Y - user input verif ...
 N - cuda paralelisation ... if possible for dixon QS and/or GNFS
 Y - Compile files seperatly and maybe swith for gcc (g++ used) for the -j option (speed up)
 N - Actually put the real complexity ...
+
+1 0 1 0 | 0
+1 0 0 0 | 0
+0 0 1 0 | 0
+

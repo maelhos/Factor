@@ -63,7 +63,7 @@ namespace GF_Bot
         int P_DEF = 0x60;
         int P_DEF_M = 0x64;
         int P_CRIT = 0xB0;
-        int P_CRIT_M= 0xB4;
+        int P_CRIT_M = 0xB4;
         int P_ESQ = 0x6C;
 
         // Simple Non-Updating variables
